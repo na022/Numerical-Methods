@@ -29,11 +29,11 @@ for (λ, μ), color, label in zip(parameters, colors, labels):
     plt.plot(x, pdf, color, label=label)
 
 # Add labels and legend
-plt.xlabel('x')
-plt.ylabel('PDF')
-plt.title('PDF on [0, 5]')
+plt.xlabel('x', fontsize=16)
+plt.title('PDF on [0, 5]',fontsize=18,fontweight= 'bold' )
+plt.xticks(fontsize=14)
 plt.legend()
-plt.grid(True)
+plt.grid(True,linewidth=1.5,linestyle=':')
 
 # Show the plot
 plt.show()
