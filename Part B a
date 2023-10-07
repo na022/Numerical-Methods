@@ -1,0 +1,63 @@
+
+"""
+Created on Fri Sep 29 14:02:47 2023
+
+@author: nayoung
+"""
+
+import numpy as np
+import math 
+
+# Define the PDF function
+def pdf(x, λ, μ):
+    return np.sqrt(λ / (2 * np.pi * x**3)) * np.exp(-λ / (2 * μ**2 * x) * (x - μ)**2)
+
+# Define the parameters
+λ = 2
+μ = 1
+
+# Define the integration bounds (epsilon to a large value K)
+epsilon = 1e-10
+K = 10
+
+# Define the number of iterations
+n = 9  # You can experiment with different values
+
+# Define the function for Romberg integration
+def funf(x):
+    return pdf(x, λ, μ)
+
+def trapezoid(a, b, n):
+    h = (b - a) / n
+    sum = (funf(a) + funf(b)) / 2
+    for i in range(1, n):
+        sum += funf(a + (i * h))
+    sum = sum * h
+    return sum
+
+def romberg(a, b, n, R):
+    R[0, 0] = ((b - a) / 2) * (funf(a) + funf(b))
+    for i in range(1, n):
+        R[i, 0] = trapezoid(a, b, 2**i)
+        for j in range(1, i+1):
+            R[i, j] = R[i, j-1] + ((R[i, j-1] - R[i-1, j-1]) / (4**(j) - 1))
+    return R
+
+
+def main(): 
+    # Magic numbers
+    a = epsilon
+    b = K
+    n = 6
+    R= np.zeros(shape=(n,n))
+
+    # Code
+    
+    print(romberg(a, b, n, R))
+
+###########################################################
+### call main
+if __name__ == "__main__":
+    main()
+
+    
