@@ -21,9 +21,9 @@ epsilon = 1e-10
 K = 10
 
 # Define the number of iterations
-n = 9  # You can experiment with different values
+n = 9 
 
-# Define the function for Romberg integration
+# Define Romberg integration
 def funf(x):
     return pdf(x, λ, μ)
 
